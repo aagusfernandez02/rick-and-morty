@@ -19,7 +19,6 @@ declare global {
         episode: string[],
         url: string,
         created: string,
-        showInfo: boolean, // Propiedad agregada por mi para mostrar/ocultar mas info en las cards
     }
     type Info = {
         count: number,

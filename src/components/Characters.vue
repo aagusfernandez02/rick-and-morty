@@ -3,27 +3,21 @@ import axios from 'axios';
 import { onMounted, Ref, ref, watch } from 'vue';
 
 const characters: Ref<Character[]> = ref([]);
-const nextPage: Ref<string> = ref('');
-const prevPage: Ref<string> = ref('');
 const totalPages: Ref<number> = ref(0);
 const actualPage: Ref<number> = ref(1);
 
-// Types
-watch(actualPage, async ()=>await fetchCharacters())
+watch(actualPage, async () => {
+    await fetchCharacters();
+});
 
 const fetchCharacters = async () => {
     try {
         const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${actualPage.value}`);
-        console.log(response)
         const res_info: Info = response.data.info;
-        const res_characters: Character[] = response.data.results.map((character: Character) => ({
-            ...character,
-            showInfo: false,  // Inicializamos `show` en false
-        }));
+        const res_characters: Character[] = response.data.results;
 
         characters.value = res_characters;
-        nextPage.value = res_info.next || '';
-        prevPage.value = res_info.prev || '';
+        console.log(res_info.pages)
         totalPages.value = res_info.pages || 0;
     } catch (error) {
         console.error('Error fetching characters:', error);
@@ -32,7 +26,6 @@ const fetchCharacters = async () => {
 
 onMounted(async () => {
     await fetchCharacters();
-    console.log(characters)
 });
 
 </script>
@@ -40,7 +33,7 @@ onMounted(async () => {
 <template>
     <!-- <h1 class="text/center">Personajes</h1> -->
     <div class="charactersContainer">
-        <v-pagination :length="totalPages"  v-model="actualPage"></v-pagination>
+        <v-pagination :length="totalPages"  v-model="actualPage" v-if="totalPages > 0"></v-pagination>
         <v-card v-for="character in characters" class="mx-auto" width="300">
             <v-img height="200px" :src="character.image" cover></v-img>
             <v-card-title>{{ character.name }}</v-card-title>
