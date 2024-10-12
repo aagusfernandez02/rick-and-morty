@@ -11,6 +11,7 @@ declare global {
         id: number,
         name: string,
         species: string,
+        status: string,
         type: string,
         gender: string,
         origin: Origin,
@@ -25,6 +26,16 @@ declare global {
         pages: number, 
         next: string,
         prev: string,
+    }
+
+    type Episode = {
+        id: number, 
+        name: string,
+        air_date: string,
+        episode: string,
+        characters: string[],
+        url: string,
+        created: string,
     }
 }
 

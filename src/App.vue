@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue';
 import Characters from './components/Characters.vue';
+import Episodes from './components/Episodes.vue';
 
 const tab: Ref<string> = ref('');
 </script>
 
 <template>
   <main>
-    <h1 class="text-h2 mb-10 mt-10">Rick and Morty app</h1>
+    <h1 class="text-h23 mb-10 mt-10" >Rick and Morty app</h1>
 
-    <v-card min-height="100vh" min-width="100vw"class="card-content">
-      <v-tabs v-model="tab" bg-color="green-darken-3">
+    <v-card width="100vw" min-height="100vh" class="card-content">
+      <v-tabs v-model="tab" bg-color="dark">
         <v-tab value="one">Personajes</v-tab>
         <v-tab value="two">Episodios</v-tab>
       </v-tabs>
@@ -22,7 +23,7 @@ const tab: Ref<string> = ref('');
           </v-tabs-window-item>
 
           <v-tabs-window-item value="two">
-            Episodios
+            <Episodes />
           </v-tabs-window-item>
         </v-tabs-window>
       </v-card-text>
