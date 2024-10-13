@@ -1,9 +1,17 @@
 <script setup>
+import { computed } from 'vue';
+
 const props = defineProps({
   character: {
     type: Object,
     required: true
   }
+});
+
+const statusClass = computed(() => {
+  if (props.character.status === 'Alive') return 'status alive';
+  if (props.character.status === 'Dead') return 'status dead';
+  return 'status unknown'; // Caso por defecto
 });
 </script>
 
@@ -13,7 +21,7 @@ const props = defineProps({
         <div class="card_info">
             <div class="mb-3">
                 <h2 class="text-h4">{{ props.character.name }}</h2>
-                <div class="statusRow"><span class="status"></span> <p class="text-body-1">{{ props.character.status }} - {{ props.character.species }}</p></div>
+                <div class="statusRow"><span :class="statusClass"></span> <p class="text-body-1">{{ props.character.status }} - {{ props.character.species }}</p></div>
             </div>
             
             <div class="mb-3">
@@ -64,7 +72,16 @@ const props = defineProps({
                 height: .5rem;
                 border-radius: 50%;
                 margin-top: 10px;
-                background-color: #f00;
+                background-color: #0f0;
+                &.alive {
+                    background-color: #0f0;
+                }
+                &.dead{
+                    background-color: #f00;
+                }
+                &.unknown{
+                    background-color: #7d7d7d;
+                }
             }
         }
     }
