@@ -1,23 +1,29 @@
 <script setup>
+const props = defineProps({
+  character: {
+    type: Object,
+    required: true
+  }
+});
 </script>
 
 <template>
     <div class="card">
-        <img src="https://rickandmortyapi.com/api/character/avatar/21.jpeg" alt="Imagen personaje" class="card_image">
+        <img :src="props.character.image" alt="Imagen personaje" class="card_image">
         <div class="card_info">
             <div class="mb-3">
-                <h2 class="text-h4">Rick Sanchez</h2>
-                <div class="statusRow"><span class="status"></span> <p class="text-body-1">Alive - Human</p></div>
+                <h2 class="text-h4">{{ props.character.name }}</h2>
+                <div class="statusRow"><span class="status"></span> <p class="text-body-1">{{ props.character.status }} - {{ props.character.species }}</p></div>
             </div>
             
             <div class="mb-3">
                 <p class="text-body-1 font-weight-bold">Last known location:</p>
-                <p class="text-body-2">Citadel of Ricks</p>
+                <p class="text-body-2">{{ props.character.location.name }}</p>
             </div>
             
             <div>
                 <p class="text-body-1 font-weight-bold">First seen in:</p>
-                <p class="text-body-2">Close Rick-counters of the Rick kind</p>
+                <p class="text-body-2">{{ props.character.origin.name }}</p>
             </div>
 
         </div>
@@ -72,7 +78,6 @@
 
 @media (min-width: 1024px) {
     .card {
-        width: calc(30% - 30px);
         flex-direction: row;
         justify-content: start;
         align-items: center;
@@ -109,6 +114,12 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: 1440px) {
+    .card {
+        width: calc(30% - 30px);
     }
 }
 </style>
